@@ -35,3 +35,9 @@ body {
   margin-left: calc(100vw - 100%);
   margin-bottom: 30px;
 }
+
+@media screen and (min-width: 1400px) {
+  div.container {
+    max-width: 2000px;
+  }
+}

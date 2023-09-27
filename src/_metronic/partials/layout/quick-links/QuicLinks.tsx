@@ -14,7 +14,7 @@ const QuickLinks: FC = () => (
     >
       <h3 className='text-white fw-bold mb-3'>Quick Links</h3>
 
-      <span className='badge bg-primary py-2 px-3'>25 pending tasks</span>
+      <span className='badge bg-primary py-2 px-3'>თასქები</span>
     </div>
 
     <div className='row g-0'>
@@ -27,7 +27,7 @@ const QuickLinks: FC = () => (
             path='/media/icons/duotune/finance/fin009.svg'
             className='svg-icon-3x svg-icon-primary mb-2'
           />
-          <span className='fs-5 fw-bold text-gray-800 mb-0'>Accounting</span>
+          <span className='fs-5 fw-bold text-gray-800 mb-0'>ექაუნთინგი</span>
           <span className='fs-7 text-gray-400'>eCommerce</span>
         </a>
       </div>
@@ -41,7 +41,7 @@ const QuickLinks: FC = () => (
             path='/media/icons/duotune/communication/com010.svg'
             className='svg-icon-3x svg-icon-primary mb-2'
           />
-          <span className='fs-5 fw-bold text-gray-800 mb-0'>Administration</span>
+          <span className='fs-5 fw-bold text-gray-800 mb-0'>ადმინისტრაცია</span>
           <span className='fs-7 text-gray-400'>Console</span>
         </a>
       </div>
@@ -52,8 +52,8 @@ const QuickLinks: FC = () => (
             path='/media/icons/duotune/abstract/abs042.svg'
             className='svg-icon-3x svg-icon-primary mb-2'
           />
-          <span className='fs-5 fw-bold text-gray-800 mb-0'>Projects</span>
-          <span className='fs-7 text-gray-400'>Pending Tasks</span>
+          <span className='fs-5 fw-bold text-gray-800 mb-0'>პროექტები</span>
+          <span className='fs-7 text-gray-400'>პროექტები</span>
         </a>
       </div>
 
@@ -63,15 +63,15 @@ const QuickLinks: FC = () => (
             path='/media/icons/duotune/finance/fin006.svg'
             className='svg-icon-3x svg-icon-primary mb-2'
           />
-          <span className='fs-5 fw-bold text-gray-800 mb-0'>Customers</span>
-          <span className='fs-7 text-gray-400'>Latest cases</span>
+          <span className='fs-5 fw-bold text-gray-800 mb-0'>მომხარებლები</span>
+          <span className='fs-7 text-gray-400'>ბოლო ქეისები</span>
         </a>
       </div>
     </div>
 
     <div className='py-2 text-center border-top'>
       <Link to='/crafted/pages/profile' className='btn btn-color-gray-600 btn-active-color-primary'>
-        View All <KTSVG path='/media/icons/duotune/arrows/arr064.svg' className='svg-icon-5' />
+        ყველას ნახვა <KTSVG path='/media/icons/duotune/arrows/arr064.svg' className='svg-icon-5' />
       </Link>
     </div>
   </div>

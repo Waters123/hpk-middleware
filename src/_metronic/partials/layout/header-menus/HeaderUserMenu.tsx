@@ -31,20 +31,11 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5'>
         <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
-          My Profile
+          პროფილი
         </Link>
       </div>
 
-      <div className='menu-item px-5'>
-        <a href='#' className='menu-link px-5'>
-          <span className='menu-text'>My Projects</span>
-          <span className='menu-badge'>
-            <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
-          </span>
-        </a>
-      </div>
-
-      <div
+      {/* <div
         className='menu-item px-5'
         data-kt-menu-trigger='hover'
         data-kt-menu-placement='left-start'
@@ -102,13 +93,7 @@ const HeaderUserMenu: FC = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className='menu-item px-5'>
-        <a href='#' className='menu-link px-5'>
-          My Statements
-        </a>
-      </div>
+      </div> */}
 
       <div className='separator my-2'></div>
 
@@ -116,13 +101,7 @@ const HeaderUserMenu: FC = () => {
 
       <div className='menu-item px-5 my-1'>
         <Link to='/crafted/account/settings' className='menu-link px-5'>
-          Account Settings
-        </Link>
-      </div>
-
-      <div className='menu-item px-5'>
-        <Link to='/logout' className='menu-link px-5'>
-          Sign Out
+          ექაუნთის პარამეტრები
         </Link>
       </div>
     </div>

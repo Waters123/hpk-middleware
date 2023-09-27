@@ -5,14 +5,19 @@ import {LayoutProvider} from '../_metronic/layout/core'
 import {SnackbarProvider} from 'notistack'
 import {Routes} from './routing/Routes'
 import {AuthProvider} from './providers/AuthContext'
+import {MasterInit} from '../_metronic/layout/MasterInit'
+import {ScrollTop} from '../_metronic/layout/components/ScrollTop'
 
 type Props = {
   basename: string
 }
 
 const App: React.FC<Props> = ({basename}) => {
+  console.log(process.env.REACT_APP_API_URL)
   return (
     <BrowserRouter basename={basename}>
+      <MasterInit />
+      <ScrollTop />
       <I18nProvider>
         <AuthProvider>
           <LayoutProvider>

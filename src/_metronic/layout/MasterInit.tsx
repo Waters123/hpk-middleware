@@ -14,6 +14,7 @@ import {useLayout} from './core'
 export function MasterInit() {
   const {config} = useLayout()
   const isFirstRun = useRef(true)
+
   const pluginsInitialization = () => {
     isFirstRun.current = false
     setTimeout(() => {

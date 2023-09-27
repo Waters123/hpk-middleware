@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory, useLocation} from 'react-router-dom'
 import {useFormik} from 'formik'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../../../providers/AuthContext'
@@ -22,19 +22,22 @@ const loginSchema = Yup.object().shape({
 
 const initialValues = {
   email: 'admin@demo.com',
-  password: 'demo',
+  password: 'Mu9iawka1122!',
 }
 
-/*
-  Formik+YUP+Typescript:
-  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
-  https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
-*/
+type LocationState = {
+  from?: {
+    pathname: string
+  }
+}
 
 export function Login() {
   const [loading, setLoading] = useState(false)
   const {setAuth}: any = useAuth()
   const history = useHistory()
+  const location = useLocation()
+  const from = (location.state as LocationState)?.from?.pathname || '/'
+
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
@@ -46,7 +49,7 @@ export function Login() {
           password: values.password,
         })
         setAuth({...user.data})
-        history.replace('/')
+        history.replace(from)
       } catch (err) {
         setLoading(false)
         setSubmitting(false)
@@ -64,17 +67,17 @@ export function Login() {
     >
       {/* begin::Heading */}
       <div className='text-center mb-10'>
-        <h1 className='text-dark mb-3'>Sign In to Metronic</h1>
+        <h1 className='text-dark mb-3'>შესვლა</h1>
         <div className='text-gray-400 fw-bold fs-4'>
-          New Here?{' '}
+          ახალი ხარ?{' '}
           <Link to='/auth/registration' className='link-primary fw-bolder'>
-            Create an Account
+            ექაუნთის შექმნა
           </Link>
         </div>
       </div>
       {/* begin::Heading */}
 
-      {formik.status ? (
+      {/* {formik.status ? (
         <div className='mb-lg-15 alert alert-danger'>
           <div className='alert-text font-weight-bold'>{formik.status}</div>
         </div>
@@ -85,13 +88,13 @@ export function Login() {
             continue.
           </div>
         </div>
-      )}
+      )} */}
 
       {/* begin::Form group */}
       <div className='fv-row mb-10'>
-        <label className='form-label fs-6 fw-bolder text-dark'>Email</label>
+        <label className='form-label fs-6 fw-bolder text-dark'>მეილი</label>
         <input
-          placeholder='Email'
+          placeholder='მეილი'
           {...formik.getFieldProps('email')}
           className={clsx(
             'form-control form-control-lg form-control-solid',
@@ -117,7 +120,7 @@ export function Login() {
         <div className='d-flex justify-content-between mt-n5'>
           <div className='d-flex flex-stack mb-2'>
             {/* begin::Label */}
-            <label className='form-label fw-bolder text-dark fs-6 mb-0'>Password</label>
+            <label className='form-label fw-bolder text-dark fs-6 mb-0'>პაროლი</label>
             {/* end::Label */}
             {/* begin::Link */}
             <Link
@@ -125,7 +128,7 @@ export function Login() {
               className='link-primary fs-6 fw-bolder'
               style={{marginLeft: '5px'}}
             >
-              Forgot Password ?
+              პაროლის აღდგენა
             </Link>
             {/* end::Link */}
           </div>
@@ -171,11 +174,9 @@ export function Login() {
           )}
         </button>
 
-        {/* begin::Separator */}
-        <div className='text-center text-muted text-uppercase fw-bolder mb-5'>or</div>
-        {/* end::Separator */}
+        {/* begin::other login methods */}
+        {/* <div className='text-center text-muted text-uppercase fw-bolder mb-5'>or</div>
 
-        {/* begin::Google link */}
         <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
           <img
             alt='Logo'
@@ -184,9 +185,7 @@ export function Login() {
           />
           Continue with Google
         </a>
-        {/* end::Google link */}
 
-        {/* begin::Google link */}
         <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
           <img
             alt='Logo'
@@ -195,9 +194,7 @@ export function Login() {
           />
           Continue with Facebook
         </a>
-        {/* end::Google link */}
 
-        {/* begin::Google link */}
         <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100'>
           <img
             alt='Logo'
@@ -205,10 +202,8 @@ export function Login() {
             className='h-20px me-3'
           />
           Continue with Apple
-        </a>
-        {/* end::Google link */}
+        </a> */}
       </div>
-      {/* end::Action */}
     </form>
   )
 }

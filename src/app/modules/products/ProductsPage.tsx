@@ -27,16 +27,14 @@ const ProductsPage: React.FC = () => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const [forceUpdate, update] = useState(false)
-  const [rows, setRows] = useState<Data[]>([])
-  const [page, setPage] = useState(1)
-  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [page, setPage] = useState(queryParams.get('page') || 1)
+  const [rowsPerPage, setRowsPerPage] = useState(queryParams.get('limit') || 5)
   const [filters, setFilters] = useState({
-    page: queryParams.get('page') || page,
-    limit: queryParams.get('rows') || rowsPerPage,
+    page: page,
+    limit: rowsPerPage,
     sort: queryParams.get('sort'),
   })
   const history = useHistory()
-
   const [deleteOne] = useLazyFetch()
 
   const {loading, data}: Response = useFetch(
@@ -47,12 +45,8 @@ const ProductsPage: React.FC = () => {
   )
 
   useEffect(() => {
-    setRows(data?.products)
-  }, [data])
-
-  useEffect(() => {
     history.push(`?${queryFilter(filters)}`)
-  }, [filters, history])
+  }, [filters, history.location.search, history])
 
   const HandleDeleteOne = async (id: string) => {
     deleteOne(`api/product/deleteProduct/${id}`, 'get').then(({snackBar}: any) => {
@@ -66,7 +60,7 @@ const ProductsPage: React.FC = () => {
       <PageTitle breadcrumbs={ProductsBreadCrumb}>ყველა პროდუქტი</PageTitle>
       <MaterialTable
         loading={loading}
-        rows={rows}
+        rows={data?.products}
         HandleDeleteOne={HandleDeleteOne}
         page={page}
         setPage={setPage}

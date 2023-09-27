@@ -16,12 +16,7 @@ export function AsideMenuMain() {
         title={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         fontIcon='bi-app-indicator'
       />
-      <AsideMenuItem
-        to='/builder'
-        icon='/media/icons/duotune/general/gen019.svg'
-        title='რამე ხუივო ზნაეტ'
-        fontIcon='bi-layers'
-      />
+
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>მენიუ</span>
@@ -34,17 +29,8 @@ export function AsideMenuMain() {
         icon='/media/icons/duotune/general/gen022.svg'
       >
         <AsideMenuItem to='/products/pages/allProducts' title='ყველა პროდუქტი' hasBullet={true} />
-        <AsideMenuItem to='/crafted/pages/profile/projects' title='წაშლა' hasBullet={true} />
       </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub
-        to='/crafted/accounts'
-        title='იუზერები'
-        icon='/media/icons/duotune/communication/com006.svg'
-        fontIcon='bi-person'
-      >
-        <AsideMenuItem to='/crafted/account/overview' title='ნახვა' hasBullet={true} />
-        <AsideMenuItem to='/crafted/account/settings' title='სეთინგები' hasBullet={true} />
-      </AsideMenuItemWithSub>
+
       <AsideMenuItemWithSub
         to='/error'
         title='ერორები'
@@ -54,7 +40,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/error/404' title='Error 404' hasBullet={true} />
         <AsideMenuItem to='/error/500' title='Error 500' hasBullet={true} />
       </AsideMenuItemWithSub>
-      <AsideMenuItemWithSub
+      {/* <AsideMenuItemWithSub
         to='/crafted/widgets'
         title='ვიჯეტები'
         icon='/media/icons/duotune/general/gen025.svg'
@@ -66,10 +52,10 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/crafted/widgets/mixed' title='Mixed' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/tables' title='Tables' hasBullet={true} />
         <AsideMenuItem to='/crafted/widgets/feeds' title='Feeds' hasBullet={true} />
-      </AsideMenuItemWithSub>
+      </AsideMenuItemWithSub> */}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
-          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Apps</span>
+          <span className='menu-section text-muted text-uppercase fs-8 ls-1'>დამატებითი</span>
         </div>
       </div>
 

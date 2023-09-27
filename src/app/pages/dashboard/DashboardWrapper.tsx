@@ -97,4 +97,4 @@ const DashboardWrapper: FC = () => {
   )
 }
 
-export {DashboardWrapper}
+export default DashboardWrapper

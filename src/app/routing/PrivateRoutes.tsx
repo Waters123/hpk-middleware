@@ -1,11 +1,11 @@
 import {Suspense, lazy} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {FallbackView} from '../../_metronic/partials'
-import {DashboardWrapper} from '../pages/dashboard/DashboardWrapper'
 
 export function PrivateRoutes() {
   const BuilderPageWrapper = lazy(() => import('../pages/layout-builder/BuilderPageWrapper'))
   const ProductsPage = lazy(() => import('../modules/products/ProductsPage'))
+  const DashboardWrapper = lazy(() => import('../pages/dashboard/DashboardWrapper'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
 
   return (

@@ -893,6 +893,7 @@ class MenuComponent {
 
   public static updateDropdowns = () => {
     const items = document.querySelectorAll('.show.menu-dropdown[data-kt-menu-trigger]')
+
     if (items && items.length > 0) {
       for (var i = 0, len = items.length; i < len; i++) {
         var item = items[i]
