@@ -4,12 +4,12 @@ import {useAuth} from '../providers/AuthContext'
 import useFresheshToken from '../hooks/useRefreshToken'
 
 export default axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
 })
 
 const axiosPrivate = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
   headers: {'Content-Type': 'application/json'},
 })

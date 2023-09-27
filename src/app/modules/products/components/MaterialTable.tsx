@@ -97,33 +97,33 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
-          <>
-            {headCell.sortable ? (
-              <TableCell
-                key={headCell._id}
-                align='left'
-                padding={headCell.disablePadding ? 'none' : 'normal'}
-                sortDirection={orderBy === headCell._id ? order : false}
+        {headCells.map((headCell) =>
+          headCell.sortable ? (
+            <TableCell
+              key={headCell._id}
+              align='left'
+              padding={headCell.disablePadding ? 'none' : 'normal'}
+              sortDirection={orderBy === headCell._id ? order : false}
+            >
+              <TableSortLabel
+                active={orderBy === headCell._id}
+                direction={orderBy === headCell._id ? order : 'asc'}
+                onClick={createSortHandler(headCell._id)}
               >
-                <TableSortLabel
-                  active={orderBy === headCell._id}
-                  direction={orderBy === headCell._id ? order : 'asc'}
-                  onClick={createSortHandler(headCell._id)}
-                >
-                  {headCell.label}
-                  {orderBy === headCell._id ? (
-                    <Box component='span' sx={visuallyHidden}>
-                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                    </Box>
-                  ) : null}
-                </TableSortLabel>
-              </TableCell>
-            ) : (
-              <TableCell align='left'>{headCell.label}</TableCell>
-            )}
-          </>
-        ))}
+                {headCell.label}
+                {orderBy === headCell._id ? (
+                  <Box component='span' sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ) : (
+            <TableCell key={headCell._id} align='left'>
+              {headCell.label}
+            </TableCell>
+          )
+        )}
       </TableRow>
     </TableHead>
   )
@@ -232,6 +232,7 @@ export default function MaterialTable({
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10))
+    onFilter({limit: parseInt(event.target.value, 10)})
     setPage(1)
   }
 
@@ -243,13 +244,12 @@ export default function MaterialTable({
   return (
     <Box sx={{width: '100%'}}>
       <Paper sx={{width: '100%', mb: 2}}>
-        {!rows ? (
+        {loading ? (
           <Box sx={{display: 'flex', justifyContent: 'center'}}>
             <CircularProgress />
           </Box>
         ) : (
           <>
-            {' '}
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
               <Table sx={{minWidth: 750}} aria-labelledby='tableTitle'>
@@ -259,7 +259,7 @@ export default function MaterialTable({
                   orderBy={orderBy}
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
+                  rowCount={rows?.length}
                 />
                 <TableBody>
                   {rows &&
