@@ -69,7 +69,7 @@ export function Login() {
       <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>შესვლა</h1>
         <div className='text-gray-400 fw-bold fs-4'>
-          ახალი ხარ?{' '}
+          ახალი ხარ??{' '}
           <Link to='/auth/registration' className='link-primary fw-bolder'>
             ექაუნთის შექმნა
           </Link>
