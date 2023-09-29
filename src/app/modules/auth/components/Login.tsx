@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link, useHistory, useLocation} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../../../providers/AuthContext'
 import axios from '../../../api/axios'
 

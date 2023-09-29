@@ -8,17 +8,26 @@ const PersistLogin = ({children}) => {
   const user = useAuth()
 
   useEffect(() => {
+    let isMounted = true
     const verifyRefreshToken = async () => {
       try {
         await refresh()
       } catch (error) {
         console.log(error)
       } finally {
-        setIsLoading(false)
+        if (isMounted) {
+          setIsLoading(false)
+        }
       }
     }
 
-    !user?.data?.token && verifyRefreshToken()
+    if (isMounted && !user?.data?.token) {
+      verifyRefreshToken()
+    }
+
+    return () => {
+      isMounted = false
+    }
   }, [user?.data?.userName])
 
   return <div>{loading && !user?.data?.token ? null : children}</div>
