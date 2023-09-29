@@ -39,8 +39,6 @@ export function useFetch(endpoint, method, options = null, forceUodate = false) 
         const response = await axios[method](endpoint, {...options, signal: controller.signal})
 
         if (_isMounted.current) {
-          dispatch({type: 'setStatus', status: response.status})
-
           const data = await response.data
 
           dispatch({type: 'setData', data})
