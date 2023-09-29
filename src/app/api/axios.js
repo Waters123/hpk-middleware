@@ -22,7 +22,7 @@ export const useAxiosPrivate = () => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
         if (!config.headers['Authorization']) {
-          config.headers['Authorization'] = `Bearer ${user?.token}`
+          config.headers['Authorization'] = user?.token && `Bearer ${user?.token}`
         }
         return config
       },
