@@ -28,9 +28,9 @@ export interface IMaterialTable {
   rows: Data[]
   HandleDeleteOne: (id: string) => Promise<void>
   page: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
+  setPage: React.Dispatch<React.SetStateAction<number | string>>
   rowsPerPage: number
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>
+  setRowsPerPage: React.Dispatch<React.SetStateAction<number | string>>
   totalCount: number
   onFilter: React.Dispatch<React.SetStateAction<any>>
 }
