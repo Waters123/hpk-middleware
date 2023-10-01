@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import MaterialTable from './components/MaterialTable'
-import {Data, Response} from './products.types'
+import {Response} from './products.types'
 import {useFetch} from '../../hooks/useFetch'
 import {useLazyFetch} from '../../hooks/useLazyFetch'
 
@@ -62,9 +62,9 @@ const ProductsPage: React.FC = () => {
         loading={loading}
         rows={data?.products}
         HandleDeleteOne={HandleDeleteOne}
-        page={page}
+        page={page as number}
         setPage={setPage}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={rowsPerPage as number}
         setRowsPerPage={setRowsPerPage}
         totalCount={data?.totalProductsCount || 0}
         onFilter={(newfilters: any) => setFilters((prev) => ({...prev, ...newfilters}))}
