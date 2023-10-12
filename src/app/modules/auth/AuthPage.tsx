@@ -5,6 +5,8 @@ import {Registration} from './components/Registration'
 import {ForgotPassword} from './components/ForgotPassword'
 import {Login} from './components/Login'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
+import {ResetPassword} from './components/ResetPassword'
+import {VerifyUser} from '../profile/components/account/verifyUser'
 
 export function AuthPage() {
   useEffect(() => {
@@ -38,6 +40,8 @@ export function AuthPage() {
             <Route path='/auth/login' component={Login} />
             <Route path='/auth/registration' component={Registration} />
             <Route path='/auth/forgot-password' component={ForgotPassword} />
+            <Route path='/auth/reset-password/:id' component={ResetPassword} />
+            <Route path='/auth/verify-user/:id' component={VerifyUser} />
             <Redirect from='/auth' exact={true} to='/auth/login' />
             <Redirect to='/auth/login' />
           </Switch>

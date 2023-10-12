@@ -4,7 +4,6 @@ import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link, useHistory} from 'react-router-dom'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../../../providers/AuthContext'
 import axios from '../../../api/axios'
 
@@ -68,10 +67,12 @@ export function Registration() {
         })
         setAuth({...user.data})
         history.push('/')
-      } catch (err) {
+      } catch (err: any) {
         setLoading(false)
         setSubmitting(false)
-        setStatus('Registration process has broken')
+        err.response.status === 409
+          ? setStatus('მეილი უკვე გამოყენებულია')
+          : setStatus('შეცდომა მოხდა რეგისტრაციის დროს')
       }
       // setTimeout(() => {
       //   register(values.email, values.firstname, values.lastname, values.password)
@@ -167,7 +168,7 @@ export function Registration() {
         <div className='col-xl-6'>
           <label className='form-label fw-bolder text-dark fs-6'>გვარი</label>
           <input
-            placeholder='Last name'
+            placeholder='გვარი'
             type='text'
             autoComplete='off'
             {...formik.getFieldProps('lastname')}
@@ -251,7 +252,7 @@ export function Registration() {
           <label className='form-label fw-bolder text-dark fs-6'>პაროლი</label>
           <div className='position-relative mb-3'>
             <input
-              type='პაროლი'
+              type='password'
               placeholder='პაროლი'
               autoComplete='off'
               {...formik.getFieldProps('password')}
@@ -281,8 +282,8 @@ export function Registration() {
       <div className='fv-row mb-5'>
         <label className='form-label fw-bolder text-dark fs-6'>დაადასტურე პაროლი</label>
         <input
-          type='დაადასტურე პაროლი'
-          placeholder='Password confirmation'
+          type='password'
+          placeholder='დაადასტურე პაროლი'
           autoComplete='off'
           {...formik.getFieldProps('changepassword')}
           className={clsx(
@@ -345,7 +346,7 @@ export function Registration() {
           {!loading && <span className='indicator-label'>რეგისტრაცია</span>}
           {loading && (
             <span className='indicator-progress' style={{display: 'block'}}>
-              Please wait...{' '}
+              გთხოვთ მოიცადოთ
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
           )}

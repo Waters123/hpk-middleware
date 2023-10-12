@@ -32,6 +32,7 @@ type LocationState = {
 
 export function Login() {
   const [loading, setLoading] = useState(false)
+  const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
   const {setAuth}: any = useAuth()
   const history = useHistory()
   const location = useLocation()
@@ -53,6 +54,7 @@ export function Login() {
         setLoading(false)
         setSubmitting(false)
         setStatus('The login detail is incorrect')
+        setHasErrors(true)
       }
     },
   })
@@ -155,7 +157,11 @@ export function Login() {
         )}
       </div>
       {/* end::Form group */}
-
+      {hasErrors === true && (
+        <div className='mb-lg-15 alert alert-danger'>
+          <div className='alert-text font-weight-bold'>პაროლი ან მეილი არასწორია</div>
+        </div>
+      )}
       {/* begin::Action */}
       <div className='text-center'>
         <button
@@ -164,10 +170,10 @@ export function Login() {
           className='btn btn-lg btn-primary w-100 mb-5'
           disabled={formik.isSubmitting || !formik.isValid}
         >
-          {!loading && <span className='indicator-label'>Continue</span>}
+          {!loading && <span className='indicator-label'>შესვლა</span>}
           {loading && (
             <span className='indicator-progress' style={{display: 'block'}}>
-              Please wait...
+              გთხოვთ მოიცადოთ
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
           )}

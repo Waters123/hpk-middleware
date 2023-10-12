@@ -3,9 +3,10 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
+import axios from '../../../api/axios'
 
 const initialValues = {
-  email: 'admin@demo.com',
+  email: '',
 }
 
 const forgotPasswordSchema = Yup.object().shape({
@@ -19,12 +20,27 @@ const forgotPasswordSchema = Yup.object().shape({
 export function ForgotPassword() {
   const [loading, setLoading] = useState(false)
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
+  const [passwordRecoverySent, setPasswordRecoverySent] = useState<boolean>(false)
   const formik = useFormik({
     initialValues,
     validationSchema: forgotPasswordSchema,
-    onSubmit: (values, {setStatus, setSubmitting}) => {
+    onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       setHasErrors(undefined)
+
+      try {
+        await axios.post('/api/user/forgot-password-token', {
+          email: values.email,
+        })
+        setHasErrors(false)
+        setLoading(false)
+        setPasswordRecoverySent(true)
+      } catch (err) {
+        setHasErrors(true)
+        setLoading(false)
+        setSubmitting(false)
+        setStatus('The login detail is incorrect')
+      }
       // setTimeout(() => {
       //   requestPassword(values.email)
       //     .then(({data: {result}}) => {
@@ -68,65 +84,83 @@ export function ForgotPassword() {
           </div>
         )}
 
-        {hasErrors === false && (
+        {passwordRecoverySent && (
           <div className='mb-10 bg-light-info p-8 rounded'>
-            <div className='text-info'>Sent password reset. Please check your email</div>
+            <span className='text-info'> პაროლის აღდგენის ლინკი, გთხოვთ შეამოწმოთ მეილი </span>
+            <span onClick={formik.handleSubmit as any}>
+              {loading ? (
+                <span style={{display: 'inline-block'}} className='indicator-progress'>
+                  გთხოვთ მოიცადოთ...
+                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                </span>
+              ) : (
+                <a href='#' className='indicator-label'>
+                  ახლიდან გაგზავნა
+                </a>
+              )}
+            </span>
           </div>
         )}
+
         {/* end::Title */}
-
-        {/* begin::Form group */}
-        <div className='fv-row mb-10'>
-          <label className='form-label fw-bolder text-gray-900 fs-6'>Email</label>
-          <input
-            type='email'
-            placeholder=''
-            autoComplete='off'
-            {...formik.getFieldProps('email')}
-            className={clsx(
-              'form-control form-control-lg form-control-solid',
-              {'is-invalid': formik.touched.email && formik.errors.email},
-              {
-                'is-valid': formik.touched.email && !formik.errors.email,
-              }
-            )}
-          />
-          {formik.touched.email && formik.errors.email && (
-            <div className='fv-plugins-message-container'>
-              <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.email}</span>
-              </div>
+        {!passwordRecoverySent && (
+          <>
+            {' '}
+            {/* begin::Form group */}
+            <div className='fv-row mb-10'>
+              <label className='form-label fw-bolder text-gray-900 fs-6'>Email</label>
+              <input
+                type='email'
+                placeholder=''
+                autoComplete='off'
+                {...formik.getFieldProps('email')}
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {'is-invalid': formik.touched.email && formik.errors.email},
+                  {
+                    'is-valid': formik.touched.email && !formik.errors.email,
+                  }
+                )}
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div className='fv-plugins-message-container'>
+                  <div className='fv-help-block'>
+                    <span role='alert'>{formik.errors.email}</span>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        {/* end::Form group */}
+            {/* end::Form group */}
+            {/* begin::Form group */}
+            <div className='d-flex flex-wrap justify-content-center pb-lg-0'>
+              <button
+                type='submit'
+                id='kt_password_reset_submit'
+                className='btn btn-lg btn-primary fw-bolder me-4'
+              >
+                {loading ? (
+                  <span style={{display: 'block'}} className='indicator-progress'>
+                    Please wait...
+                    <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                  </span>
+                ) : (
+                  <span className='indicator-label'>Submit</span>
+                )}
+              </button>
+              <Link to='/auth/login'>
+                <button
+                  type='button'
+                  id='kt_login_password_reset_form_cancel_button'
+                  className='btn btn-lg btn-light-primary fw-bolder'
+                  disabled={formik.isSubmitting || !formik.isValid}
+                >
+                  Cancel
+                </button>
+              </Link>{' '}
+            </div>{' '}
+          </>
+        )}
 
-        {/* begin::Form group */}
-        <div className='d-flex flex-wrap justify-content-center pb-lg-0'>
-          <button
-            type='submit'
-            id='kt_password_reset_submit'
-            className='btn btn-lg btn-primary fw-bolder me-4'
-          >
-            <span className='indicator-label'>Submit</span>
-            {loading && (
-              <span className='indicator-progress'>
-                Please wait...
-                <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-              </span>
-            )}
-          </button>
-          <Link to='/auth/login'>
-            <button
-              type='button'
-              id='kt_login_password_reset_form_cancel_button'
-              className='btn btn-lg btn-light-primary fw-bolder'
-              disabled={formik.isSubmitting || !formik.isValid}
-            >
-              Cancel
-            </button>
-          </Link>{' '}
-        </div>
         {/* end::Form group */}
       </form>
     </>

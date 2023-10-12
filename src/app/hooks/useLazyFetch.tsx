@@ -57,7 +57,7 @@ export function useLazyFetch() {
 
   const fetcher = useCallback(
     (endpoint: string, method: string, body?: any): Promise<ResponseData | null> =>
-      new Promise(async (resolve) => {
+      new Promise(async (resolve, reject) => {
         dispatch({type: ActionTypes.SetLoading, loading: true})
 
         try {
@@ -79,13 +79,14 @@ export function useLazyFetch() {
           const data: ResponseData = await response.data
 
           dispatch({type: ActionTypes.SetData, data})
-          const snackBar = () =>
-            enqueueSnackbar('Successful', {
+          const snackBar = (text?: string) =>
+            enqueueSnackbar(text || 'Successful', {
               variant: 'success',
             })
 
           resolve({data, snackBar})
         } catch (error) {
+          reject(error)
           dispatch({type: ActionTypes.SetError, error})
           enqueueSnackbar('Error', {
             variant: 'error',

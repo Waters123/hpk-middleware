@@ -12,6 +12,21 @@ body {
   color: $page-bg;
 }
 
+input:disabled:hover,
+input:disabled:active,
+input:disabled:focus,
+input:disabled {
+  background-color: #f5f8fa !important;
+}
+
+.form-control.form-control-solid,
+.form-control.form-control-solid:hover,
+.form-control.form-control-solid:active,
+.form-control.form-control-solid:focus {
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(228, 230, 239);
+}
+
 // Desktop Mode
 @include media-breakpoint-up(lg) {
   // Containers
