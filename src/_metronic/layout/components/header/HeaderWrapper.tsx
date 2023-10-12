@@ -8,12 +8,14 @@ import {useLayout} from '../../core'
 import {Header} from './Header'
 import {DefaultTitle} from './page-title/DefaultTitle'
 import {Topbar} from './Topbar'
+import {Alert} from '@mui/material'
+import {useAuth} from '../../../../app/providers/AuthContext'
 
 export function HeaderWrapper() {
   const {pathname} = useLocation()
   const {config, classes, attributes} = useLayout()
   const {header, aside} = config
-
+  const {data}: any = useAuth()
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [pathname])
@@ -24,6 +26,23 @@ export function HeaderWrapper() {
       className={clsx('header', classes.header.join(' '), 'align-items-stretch')}
       {...attributes.headerMenu}
     >
+      <div
+        style={{
+          width: '80%',
+          position: 'fixed',
+          zIndex: 500,
+          justifyContent: 'center',
+          display: 'flex',
+        }}
+        className='warning-wrapper'
+      >
+        {!data?.verified && (
+          <Alert style={{boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'}} severity='error'>
+            გაიარეთ ვერიფიკაცია
+            <Link to='/user/settings'> ვერიფიკაცია</Link>
+          </Alert>
+        )}
+      </div>
       <div
         className={clsx(
           classes.headerContainer.join(' '),

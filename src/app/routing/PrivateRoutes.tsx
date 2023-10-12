@@ -1,6 +1,7 @@
 import {Suspense, lazy} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {FallbackView} from '../../_metronic/partials'
+import ProfilePage from '../modules/profile/ProfilePage'
 
 export function PrivateRoutes() {
   const BuilderPageWrapper = lazy(() => import('../pages/layout-builder/BuilderPageWrapper'))
@@ -16,6 +17,8 @@ export function PrivateRoutes() {
         <Route path='/products/pages/allProducts' component={ProductsPage} />
         <Route path='/crafted/widgets' component={WidgetsPage} />
 
+        {/* user */}
+        <Route path='/user' component={ProfilePage} />
         <Redirect from='/auth' to='/dashboard' />
         <Redirect exact from='/' to='/dashboard' />
         <Redirect to='error/404' />

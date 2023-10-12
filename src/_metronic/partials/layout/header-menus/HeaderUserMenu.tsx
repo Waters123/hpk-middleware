@@ -2,8 +2,11 @@
 import {FC} from 'react'
 import {Link} from 'react-router-dom'
 import {Languages} from './Languages'
+import {useAuth} from '../../../../app/providers/AuthContext'
+import {ROLES} from '../../../../app/routing/Routes'
 
 const HeaderUserMenu: FC = () => {
+  const {data}: any = useAuth()
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -12,17 +15,18 @@ const HeaderUserMenu: FC = () => {
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
-            <span>userpic</span>
+            <img src='/media/svg/avatars/maro.jpg' alt='metronic' />
           </div>
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {'guga'} {'bukhrashvili'}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
+              {data?.firstName} {data?.lastName}
+              {ROLES.Admin && (
+                <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>
+                  Admin
+                </span>
+              )}
             </div>
-            <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
-              {'guga33331@gmail.com'}
-            </a>
           </div>
         </div>
       </div>
@@ -100,7 +104,7 @@ const HeaderUserMenu: FC = () => {
       <Languages />
 
       <div className='menu-item px-5 my-1'>
-        <Link to='/crafted/account/settings' className='menu-link px-5'>
+        <Link to='/user/settings' className='menu-link px-5'>
           ექაუნთის პარამეტრები
         </Link>
       </div>

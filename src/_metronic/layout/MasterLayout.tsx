@@ -11,6 +11,7 @@ const MasterLayout: React.FC = ({children}) => {
     <PageDataProvider>
       <div className='page d-flex flex-row flex-column-fluid'>
         <AsideDefault />
+
         <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
           <HeaderWrapper />
 

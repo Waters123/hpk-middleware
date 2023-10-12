@@ -14,7 +14,7 @@ import {ErrorsPage} from '../modules/errors/ErrorsPage'
 import PersistLogin from '../modules/auth/middleWares/PersistLogin'
 import RequireAuth from '../modules/auth/middleWares/AuthMiddleWare'
 
-const ROLES = {
+export const ROLES = {
   User: 156,
   Editor: 289,
   Admin: 578,
@@ -24,7 +24,7 @@ const Routes: FC = () => {
     <Switch>
       <Route path='/error' component={ErrorsPage} />
       <Route path='/auth' component={AuthPage} />
-
+      <Route path='/auth' component={AuthPage} />
       <Route>
         <PersistLogin>
           <MasterLayout>

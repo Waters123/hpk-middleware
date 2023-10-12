@@ -27,7 +27,6 @@ export function getLayout(): ILayout {
 }
 
 function setLayout(config: ILayout): void {
-  console.log()
   try {
     localStorage.setItem(LAYOUT_CONFIG_KEY, JSON.stringify(config))
   } catch (er) {
