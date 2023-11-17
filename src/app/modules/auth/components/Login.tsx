@@ -53,7 +53,7 @@ export function Login() {
       } catch (err) {
         setLoading(false)
         setSubmitting(false)
-        setStatus('The login detail is incorrect')
+        setStatus({message: 'ss'})
         setHasErrors(true)
       }
     },

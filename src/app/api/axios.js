@@ -38,6 +38,9 @@ export const useAxiosPrivate = () => {
           const newToken = await refresh()
           prevRequest.headers['Authorization'] = `Bearer ${newToken}`
           return axiosPrivate(prevRequest)
+        } else {
+          // Handle other types of errors or re-throw the original error
+          throw error
         }
       }
     )

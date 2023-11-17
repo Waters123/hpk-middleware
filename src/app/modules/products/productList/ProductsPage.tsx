@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import {PageLink, PageTitle} from '../../../_metronic/layout/core'
+import {PageLink, PageTitle} from '../../../../_metronic/layout/core'
 import MaterialTable from './components/MaterialTable'
 import {Response} from './products.types'
-import {useFetch} from '../../hooks/useFetch'
-import {useLazyFetch} from '../../hooks/useLazyFetch'
-
-import {queryFilter} from '../../utils/generateQueryString'
+import {useFetch} from '../../../hooks/useFetch'
+import {useLazyFetch} from '../../../hooks/useLazyFetch'
+import {queryFilter} from '../../../utils/generateQueryString'
 import {useHistory, useLocation} from 'react-router-dom'
 
 const ProductsBreadCrumb: Array<PageLink> = [
   {
     title: 'პროდუქტი',
-    path: '/products/pages/add',
+    path: '/products/pages/allProducts',
     isSeparator: false,
     isActive: true,
   },

@@ -3,7 +3,7 @@ import {useAxiosPrivate} from '../api/axios'
 import {useSnackbar} from 'notistack'
 const initialState = {
   data: null,
-  loading: false,
+  loading: true,
   error: null,
   status: null,
 }
