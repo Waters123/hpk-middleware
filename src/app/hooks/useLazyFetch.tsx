@@ -3,9 +3,7 @@ import {useAxiosPrivate} from '../api/axios' // Import AxiosResponse if not alre
 import {useSnackbar} from 'notistack'
 
 // Define a type for the response data
-interface ResponseData {
-  // Define the structure of your response data here
-}
+interface ResponseData {}
 
 interface LazyFetchState {
   data: ResponseData | null
@@ -35,6 +33,10 @@ const initialState: LazyFetchState = {
   status: null,
 }
 
+interface SnackbarFunction {
+  (text?: string): void
+}
+
 const reducer = (state: LazyFetchState, action: LazyFetchAction): LazyFetchState => {
   switch (action.type) {
     case ActionTypes.SetData:
@@ -56,7 +58,7 @@ export function useLazyFetch() {
   const {enqueueSnackbar} = useSnackbar()
 
   const fetcher = useCallback(
-    (endpoint: string, method: string, body?: any): Promise<ResponseData | null> =>
+    (endpoint: string, method: string, body?: any): Promise<any> =>
       new Promise(async (resolve, reject) => {
         dispatch({type: ActionTypes.SetLoading, loading: true})
 
@@ -76,22 +78,24 @@ export function useLazyFetch() {
             throw new Error(`Unsupported HTTP method: ${method}`)
           }
 
-          const data: ResponseData = await response.data
+          if (response && response.data) {
+            const data: ResponseData = response.data
+            dispatch({type: ActionTypes.SetData, data})
 
-          dispatch({type: ActionTypes.SetData, data})
-          const snackBar = (text?: string) =>
-            enqueueSnackbar(text || 'Successful', {
-              variant: 'success',
-            })
+            const snackBar: SnackbarFunction = (text?: string) =>
+              enqueueSnackbar(text || 'Successful', {
+                variant: 'success',
+              })
 
-          resolve({data, snackBar})
+            resolve({data, snackBar})
+          }
         } catch (error) {
           reject(error)
           dispatch({type: ActionTypes.SetError, error})
           enqueueSnackbar('Error', {
             variant: 'error',
           })
-          return null // Handle errors appropriately based on your application logic
+          return null
         }
       }),
 

@@ -21,7 +21,6 @@ const useRefreshToken = () => {
 
       return response.data.accessToken
     } catch (err) {
-      console.log(err)
       user.setAuth(null)
       history.replace({
         pathname: '/auth/login',

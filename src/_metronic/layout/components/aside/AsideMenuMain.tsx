@@ -23,12 +23,13 @@ export function AsideMenuMain() {
         </div>
       </div>
       <AsideMenuItemWithSub
-        to='/products/pages'
+        to='/products'
         title='პროდუქტი'
         fontIcon='bi-archive'
         icon='/media/icons/duotune/general/gen022.svg'
       >
-        <AsideMenuItem to='/products/pages/allProducts' title='ყველა პროდუქტი' hasBullet={true} />
+        <AsideMenuItem to='/products/allProducts' title='ყველა პროდუქტი' hasBullet={true} />
+        <AsideMenuItem to='/products/categories' title='კატეგორია' hasBullet={true} />
       </AsideMenuItemWithSub>
 
       <AsideMenuItemWithSub
